@@ -1,0 +1,19 @@
+{
+  "name": "@asset-town/workers",
+  "private": true,
+  "version": "0.0.1",
+  "license": "MIT",
+  "scripts": {
+    "deploy:dev": "wrangler deploy src/index.ts",
+    "deploy:prod": "wrangler deploy src/index.ts --env production",
+    "dev": "wrangler dev --remote src/index.ts"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240117.0",
+    "typescript": "^5.3.3",
+    "wrangler": "^3.25.0"
+  },
+  "dependencies": {
+    "itty-router": "^4.0.27"
+  }
+}

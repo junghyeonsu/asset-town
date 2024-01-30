@@ -1,0 +1,33 @@
+const esbuild = require("esbuild");
+
+const commonOpts = {
+  entryPoints: ["./main/code.ts"],
+  outfile: "dist/code.js",
+  target: "es6",
+  bundle: true,
+  minify: true,
+  plugins: [],
+};
+
+async function watch() {
+  const ctx = await esbuild.context(commonOpts);
+
+  await ctx.watch();
+  console.log("Watching Plugin Code...");
+}
+
+function build() {
+  esbuild.build(commonOpts).catch(() => process.exit(1));
+}
+
+function main() {
+  const isWatch = process.env.WATCH;
+
+  if (isWatch) {
+    watch();
+  } else {
+    build();
+  }
+}
+
+main();

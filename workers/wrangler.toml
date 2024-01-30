@@ -1,0 +1,17 @@
+# Top-level configuration
+name = "sanity-proxy"
+main = "src/index.js"
+compatibility_date = "2022-07-12"
+
+workers_dev = false
+
+vars = { ENVIRONMENT = "dev" }
+r2_buckets  = [
+  { binding = "ASSET_TOWN_CDN_BUCKET", bucket_name = "asset-town-cdn-alpha"},
+]
+
+[env.production]
+vars = { ENVIRONMENT = "prod" }
+r2_buckets  = [
+  { binding = "ASSET_TOWN_CDN_BUCKET", bucket_name = "asset-town-cdn-prod"},
+]

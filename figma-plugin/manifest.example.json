@@ -1,0 +1,13 @@
+{
+  "name": "<YOUR PLUGIN NAME>",
+  "id": "<YOUR PLUGIN ID>",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/index.html",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": ["figma", "figjam"],
+  "networkAccess": {
+    "allowedDomains": ["https://cdn.sanity.io"]
+  }
+}
