@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 
 import { Button } from "./components/ui/button";
 import { useToast } from "./components/ui/use-toast";
+import { copyClipboard } from "./lib/utils";
 
 /**
  * @param url - https://cdn.sanity.io/files/{projectId}/{dataset}/{assetId}.{extension}
@@ -14,31 +15,14 @@ import { useToast } from "./components/ui/use-toast";
 function changeToCloudflareCDN({ _type, lottie }: Lottie) {
   const { assetId, extension } = lottie;
   const isDev = import.meta.env.MODE === "dev";
-  const cdnDomain = isDev ? import.meta.env.VITE_ALPHA_CDN_DOMAIN : import.meta.env.VITE_PROD_CDN_DOMAIN;
-  return `https://${cdnDomain}/${_type}/${assetId}.${extension}`;
-}
 
-function copyLink({ url }: { url: string }) {
-  try {
-    navigator.clipboard.writeText(url);
-  } catch (error) {
-    console.error(error);
-    if (!url) return;
-    const input = document.createElement("input");
-    input.style.position = "fixed";
-    input.style.top = "0";
-    input.style.left = "0";
-    input.style.opacity = "0";
-    document.body.appendChild(input);
-    input.value = url;
-    input.focus();
-    input.select();
-    const result = document.execCommand("copy");
-    document.body.removeChild(input);
-    if (!result) {
-      console.error("copy failed");
-    }
-  }
+  /**
+   * @description 로컬 개발 환경에서는 cdn을 사용하지 않는다.
+   */
+  if (isDev) return lottie.url;
+
+  const cdnDomain = import.meta.env.VITE_CDN_DOMAIN;
+  return `https://${cdnDomain}/${_type}/${assetId}.${extension}`;
 }
 
 export const App = () => {
@@ -47,8 +31,6 @@ export const App = () => {
 
   if (isPending) return <div>loading...</div>;
   if (error) return <div>error: {error.message}</div>;
-
-  console.log("data", data);
 
   return (
     <div className="grid grid-cols-3 break-words gap-3 p-2">
@@ -75,7 +57,7 @@ export const App = () => {
                 className="w-[100%]"
                 onClick={() => {
                   const url = changeToCloudflareCDN(obj);
-                  copyLink({ url });
+                  copyClipboard({ url });
                   toast({
                     title: "클립보드에 주소를 복사했습니다.",
                     description: `${url}`,

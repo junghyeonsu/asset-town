@@ -10,6 +10,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const queryClient = new QueryClient();
 
+console.log("import.meta.env.MODE", import.meta.env.MODE);
+
 // biome-ignore lint/style/noNonNullAssertion: <explanation>
 const root = createRoot(document.getElementById("root")!);
 root.render(

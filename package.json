@@ -4,9 +4,8 @@
   "repository": "https://github.com/junghyeonsu/hello-sanity.git",
   "author": "junghyeonsu <jung660317@naver.com>",
   "license": "MIT",
-  "workspaces": [
-    "sanity",
-    "figma-plugin",
-    "workers"
-  ]
+  "workspaces": ["sanity", "figma-plugin", "workers"],
+  "devDependencies": {
+    "@biomejs/biome": "^1.5.3"
+  }
 }
