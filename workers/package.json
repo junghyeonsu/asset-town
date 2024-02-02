@@ -4,8 +4,7 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "deploy:dev": "wrangler deploy src/index.ts",
-    "deploy:prod": "wrangler deploy src/index.ts --env production",
+    "deploy": "wrangler deploy src/index.ts",
     "dev": "wrangler dev --remote src/index.ts"
   },
   "devDependencies": {

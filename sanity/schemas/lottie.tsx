@@ -7,18 +7,18 @@ export const lottie = defineType({
   title: "Lottie",
   fields: [
     defineField({
-      name: "Name",
+      name: "title",
       type: "string",
       description: "로띠 이름을 입력해주세요.",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "Description",
+      name: "description",
       type: "string",
       description: "로띠 설명을 입력해주세요.",
     }),
     defineField({
-      name: "LottieFile",
+      name: "lottie",
       type: "file",
       description: "로띠 파일을 올려주세요.",
       options: {
@@ -30,11 +30,18 @@ export const lottie = defineType({
       validation: (Rule) => Rule.assetRequired(),
     }),
     defineField({
-      name: "PreviewImage",
+      name: "svg",
       type: "image",
-      description: "로띠 미리보기 이미지를 올려주세요.",
       options: {
-        accept: "image/png, image/jpeg, image/webp, image/svg+xml",
+        accept: "image/svg+xml",
+      },
+      validation: (Rule) => Rule.assetRequired(),
+    }),
+    defineField({
+      name: "gif",
+      type: "image",
+      options: {
+        accept: "image/gif",
       },
       validation: (Rule) => Rule.assetRequired(),
     }),
@@ -42,9 +49,9 @@ export const lottie = defineType({
 
   preview: {
     select: {
-      title: "Name",
-      subtitle: "Description",
-      media: "PreviewImage",
+      title: "title",
+      subtitle: "description",
+      media: "svg",
     },
   },
 });

@@ -16,6 +16,7 @@
     "@sanity/asset-utils": "^1.3.0",
     "@sanity/ui": "^2.0.1",
     "@sanity/vision": "^3.26.0",
+    "gifenc": "^1.0.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-is": "^18.2.0",
@@ -28,6 +29,7 @@
     "@sanity/types": "^3.26.0",
     "@types/react": "^18.0.25",
     "@types/react-lottie": "^1.2.10",
+    "lottie-web": "^5.12.2",
     "typescript": "^5.1.6"
   }
 }
