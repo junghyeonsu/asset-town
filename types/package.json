@@ -1,0 +1,13 @@
+{
+  "name": "@asset-town/types",
+  "private": true,
+  "version": "0.0.1",
+  "main": "index.d.ts",
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "import": "./index.d.ts",
+      "require": "./index.d.ts"
+    }
+  }
+}

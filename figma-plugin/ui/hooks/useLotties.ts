@@ -1,47 +1,59 @@
 import { useQuery } from "@tanstack/react-query";
+import type { SanityRequest } from "@asset-town/types";
+
 import { client } from "../sanityClient";
-
-export interface Asset {
-  url: string;
-  assetId: string;
-  extension: string;
-}
-
-export interface Lottie {
-  _type: string;
-  title: string;
-  description: string;
-  lottie: Asset;
-  svg: Asset;
-  gif: Asset;
-}
 
 const getLotties = () =>
   client.fetch(`
     *[_type == "lottie"] {
+      _id,
       _type,
       title,
       description,
-      "lottie": lottie.asset->{
+      "gif": gif.asset->{
+        _id,
+        _type,
+        _createdAt,
+        _updatedAt,
         url,
+        originalFilename,
+        uploadId,
         assetId,
         extension,
+        path,
+        mimeType,
       },
       "svg": svg.asset->{
+        _id,
+        _type,
+        _createdAt,
+        _updatedAt,
         url,
+        originalFilename,
+        uploadId,
         assetId,
         extension,
+        mimeType,
+        path
       },
-      "gif": gif.asset->{
+      "lottie": lottie.asset->{
+        _id,
+        _type,
+        _createdAt,
+        _updatedAt,
         url,
+        originalFilename,
+        uploadId,
         assetId,
         extension,
-      }
+        mimeType,
+        path
+      },
     }
 `);
 
 export const useLottiesQuery = () => {
-  return useQuery<Lottie[], Error, Lottie[]>({
+  return useQuery<SanityRequest[], Error, SanityRequest[]>({
     queryKey: ["lotties"],
     queryFn: getLotties,
     retry: false,
