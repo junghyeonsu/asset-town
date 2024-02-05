@@ -1,7 +1,7 @@
 import { GIFEncoder, applyPalette, quantize } from "gifenc";
 
 import { getFile } from "@sanity/asset-utils";
-import { Button, Stack } from "@sanity/ui";
+import { Button, Stack, Flex, Badge, Inline } from "@sanity/ui";
 
 import { ComponentType } from "react";
 import { useClient, useFormValue, type FileValue, type ObjectInputProps, type ObjectSchemaType } from "sanity";
@@ -138,62 +138,72 @@ export const CustomLottiePlayerInput: ComponentType<ObjectInputProps<FileValue, 
 
   return (
     <Stack space={3}>
-      <Player
-        ref={svgPlayerRef}
-        lottieRef={(ref) => {
-          svgLottieRef.current = ref;
-        }}
-        autoplay
-        loop
-        src={url}
-        style={{ height: "300px", width: "300px" }}
-      >
-        <Controls visible={true} buttons={["play", "repeat", "frame", "debug", ""]} />
-      </Player>
+      <Flex gap={3}>
+        <Flex gap={1} direction="column" align="center">
+          <Inline>
+            <Badge>SVG Renderer</Badge>
+          </Inline>
+          {/* SVG 추출을 위한 Player */}
+          <Player
+            ref={svgPlayerRef}
+            lottieRef={(ref) => {
+              svgLottieRef.current = ref;
+            }}
+            autoplay
+            loop
+            src={url}
+            style={{ height: "300px", width: "300px" }}
+          >
+            <Controls visible={true} buttons={["play", "repeat", "frame", "debug", ""]} />
+          </Player>
 
-      {/* GIF 추출을 위한 Player */}
-      <Player
-        ref={gitPlayerRef}
-        lottieRef={(ref) => {
-          gitLottieRef.current = ref;
-        }}
-        renderer="canvas"
-        rendererSettings={{
-          clearCanvas: true,
-        }}
-        src={url}
-        style={{ height: "300px", width: "300px", display: "none" }}
-      />
+          <Button
+            width="fill"
+            style={{
+              cursor: "pointer",
+            }}
+            loading={isSvgLoading}
+            disabled={isSvgLoading}
+            onClick={extractSvg}
+          >
+            SVG 추출하기 (현재 프레임 기준)
+          </Button>
+        </Flex>
 
-      <div
-        style={{
-          display: "flex",
-          gap: "8px",
-        }}
-      >
-        <Button
-          style={{
-            flex: 1,
-            cursor: "pointer",
-          }}
-          loading={isGifLoading}
-          disabled={isGifLoading}
-          onClick={extractGif}
-        >
-          GIF 추출하기
-        </Button>
-        <Button
-          style={{
-            flex: 1,
-            cursor: "pointer",
-          }}
-          loading={isSvgLoading}
-          disabled={isSvgLoading}
-          onClick={extractSvg}
-        >
-          SVG 추출하기 (현재 프레임 기준)
-        </Button>
-      </div>
+        <Flex gap={1} direction="column" align="center">
+          <Inline>
+            <Badge>Canvas Renderer</Badge>
+          </Inline>
+          {/* GIF 추출을 위한 Player */}
+          <Player
+            ref={gitPlayerRef}
+            lottieRef={(ref) => {
+              gitLottieRef.current = ref;
+            }}
+            renderer="canvas"
+            rendererSettings={{
+              clearCanvas: true,
+            }}
+            autoplay
+            loop
+            src={url}
+            style={{ height: "300px", width: "300px" }}
+          >
+            <Controls visible={true} buttons={["play", "repeat", "frame", "debug", ""]} />
+          </Player>
+          <Button
+            width="fill"
+            style={{
+              cursor: "pointer",
+            }}
+            loading={isGifLoading}
+            disabled={isGifLoading}
+            onClick={extractGif}
+          >
+            GIF 추출하기
+          </Button>
+        </Flex>
+      </Flex>
 
       {props.renderDefault({
         ...props,

@@ -1,28 +1,42 @@
 import { useQuery } from "@tanstack/react-query";
 import { client } from "../sanityClient";
 
+export interface Asset {
+  url: string;
+  assetId: string;
+  extension: string;
+}
+
 export interface Lottie {
   _type: string;
-  name: string;
+  title: string;
   description: string;
-  lottie: {
-    url: string;
-    assetId: string;
-    extension: string;
-  };
+  lottie: Asset;
+  svg: Asset;
+  gif: Asset;
 }
 
 const getLotties = () =>
   client.fetch(`
     *[_type == "lottie"] {
       _type,
-      "name": Name,
-      "description": Description,
-      "lottie": LottieFile.asset->{
+      title,
+      description,
+      "lottie": lottie.asset->{
         url,
         assetId,
         extension,
       },
+      "svg": svg.asset->{
+        url,
+        assetId,
+        extension,
+      },
+      "gif": gif.asset->{
+        url,
+        assetId,
+        extension,
+      }
     }
 `);
 
