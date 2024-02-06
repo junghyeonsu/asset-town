@@ -27,7 +27,7 @@ function changeToCloudflareCDN({ type, id, asset }: { type: string; id: string; 
 
 const LottieCard = React.memo((props: SanityRequest) => {
   const { toast } = useToast();
-  const { lottie, title, gif, svg, _id, _type } = props;
+  const { lottie, title, _id, _type } = props;
   const [isHover, setIsHover] = React.useState(false);
 
   const handleMouseEnter = () => {
@@ -67,35 +67,6 @@ const LottieCard = React.memo((props: SanityRequest) => {
               <p>JSON CDN URL 복사하기</p>
             </TooltipContent>
           </Tooltip>
-
-          {/* <Button
-            className="w-[100%]"
-            onClick={() => {
-              const url = changeToCloudflareCDN({ type: _type, id: _id, asset: svg });
-              copyClipboard({ url });
-              toast({
-                title: "클립보드에 주소를 복사했습니다.",
-                description: `${url}`,
-                duration: 2000,
-              });
-            }}
-          >
-            SVG URL 복사
-          </Button>
-          <Button
-            className="w-[100%]"
-            onClick={() => {
-              const url = changeToCloudflareCDN({ type: _type, id: _id, asset: gif });
-              copyClipboard({ url });
-              toast({
-                title: "클립보드에 주소를 복사했습니다.",
-                description: `${url}`,
-                duration: 2000,
-              });
-            }}
-          >
-            GIF URL 복사
-          </Button> */}
         </div>
       )}
 
